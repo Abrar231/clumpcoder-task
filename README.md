@@ -3,5 +3,6 @@
 
 These screens can be accessed using following urls
 
-eCommerce Screen: 
-Pro Form Layout: 
+eCommerce Screen: https://clumpcoder-task.vercel.app/ecommerce
+Pro Form Layout: https://clumpcoder-task.vercel.app/proFormLayout
+
