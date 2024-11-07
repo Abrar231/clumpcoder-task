@@ -31,7 +31,7 @@ interface openMenuProps{
 }
 
 export default function Sidebar() {
-    const [openMenus, setOpenMenus] = useState({
+    const [openMenus, setOpenMenus] = useState<openMenuProps>({
         dashboard: false,
         calender: false,
         profile: false,
@@ -47,9 +47,9 @@ export default function Sidebar() {
     const location = useLocation();
 
     const toggleMenu = (menu: string) => {
-        setOpenMenus((prevState: openMenuProps) => ({
+        setOpenMenus((prevState) => ({
             ...prevState,
-            [menu]: !prevState[menu]
+            [menu]: !prevState[menu as keyof openMenuProps]
         }))
     }
 
