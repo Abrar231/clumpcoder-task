@@ -1,75 +1,34 @@
-// export default function Sidebar() {
-//     return (
-//       <aside className="fixed left-0 top-0 h-full w-64 bg-[#1a1f37] text-white">
-//         <div className="flex items-center gap-2 p-4">
-//           <div className="h-8 w-8 rounded-lg bg-blue-600"></div>
-//           <span className="text-xl font-semibold">TailAdmin</span>
-//         </div>
-        
-//         <nav className="p-4">
-//           <div className="space-y-4">
-//             <div className="flex items-center gap-2 rounded-lg p-2 hover:bg-white/10">
-//               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-//               </svg>
-//               <span>Task</span>
-//             </div>
-            
-//             <div className="space-y-2">
-//               <div className="flex items-center gap-2 rounded-lg bg-white/10 p-2">
-//                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-//                 </svg>
-//                 <span>Forms</span>
-//               </div>
-//               <div className="ml-4 space-y-2">
-//                 <div className="flex items-center justify-between rounded-lg p-2 text-gray-400">
-//                   <span>Form Elements</span>
-//                 </div>
-//                 <div className="flex items-center justify-between rounded-lg p-2 text-gray-400">
-//                   <span>Pro Form Elements</span>
-//                   <span className="rounded bg-blue-600 px-2 py-0.5 text-xs">Pro</span>
-//                 </div>
-//                 <div className="flex items-center justify-between rounded-lg p-2 text-gray-400">
-//                   <span>Form Layout</span>
-//                 </div>
-//                 <div className="flex items-center justify-between rounded-lg p-2 text-white">
-//                   <span>Pro Form Layout</span>
-//                   <span className="rounded bg-blue-600 px-2 py-0.5 text-xs">Pro</span>
-//                 </div>
-//               </div>
-//             </div>
-  
-//             <div className="pt-4">
-//               <div className="px-4 text-sm text-gray-400">SUPPORT</div>
-//               <div className="space-y-2 pt-2">
-//                 <div className="flex items-center justify-between rounded-lg p-2">
-//                   <div className="flex items-center gap-2">
-//                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-//                     </svg>
-//                     <span>Messages</span>
-//                   </div>
-//                   <div className="flex items-center gap-2">
-//                     <span className="rounded bg-blue-600 px-2 py-0.5">5</span>
-//                     <span className="rounded bg-blue-600 px-2 py-0.5 text-xs">Pro</span>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </nav>
-//       </aside>
-//     )
-//   }
+import { ReactElement, useState } from 'react'
+import { ChevronDown, Layout, FileText, Table, FileInput, MessageSquare, Inbox, FileSpreadsheet, PieChart, Layers, Key, LayoutDashboard, CalendarDays, User, LucideProps } from 'lucide-react'
+import { useNavigate, useLocation } from 'react-router-dom';
 
+interface MenuItemProps {
+    icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>,
+    label: string,
+    isOpen: boolean,
+    hasSubmenu: boolean, 
+    onClick: () => void,
+    children?: ReactElement
+}
 
+interface SubMenuItemProps {
+    label: string,
+    isPro?: boolean,
+    onClick?: () => void
+}
 
-
-
-import { useState } from 'react'
-import { ChevronDown, Layout, FileText, Table, FileInput, MessageSquare, Inbox, FileSpreadsheet, PieChart, Layers, Key, LayoutDashboard, CalendarDays, User } from 'lucide-react'
-
+interface openMenuProps{
+        dashboard: boolean,
+        calender: boolean,
+        profile: boolean,
+        task: boolean,
+        forms: boolean,
+        tables: boolean,
+        pages: boolean,
+        chart: boolean,
+        uiElements: boolean,
+        authentication: boolean,
+}
 
 export default function Sidebar() {
     const [openMenus, setOpenMenus] = useState({
@@ -84,17 +43,19 @@ export default function Sidebar() {
         uiElements: false,
         authentication: false,
     })
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const toggleMenu = (menu) => {
-        setOpenMenus(prevState => ({
+    const toggleMenu = (menu: string) => {
+        setOpenMenus((prevState: openMenuProps) => ({
             ...prevState,
             [menu]: !prevState[menu]
         }))
     }
 
-    const MenuItem = ({ icon: Icon, label, isOpen, hasSubmenu, onClick, children }) => (
+    const MenuItem = ({ icon: Icon, label, isOpen, hasSubmenu, onClick, children}: MenuItemProps) => (
         <div>
-            <button
+            <button 
                 onClick={onClick}
                 className={`flex w-full items-center justify-between rounded-lg p-2 text-sm ${isOpen ? 'bg-white/10' : 'hover:bg-white/10'}`}
                 aria-expanded={isOpen}
@@ -112,11 +73,11 @@ export default function Sidebar() {
         </div>
     )
 
-    const SubMenuItem = ({ label, isPro }) => (
-        <div className="flex items-center justify-between rounded-lg p-2 text-sm text-gray-400 hover:bg-white/5">
-            <span>{label}</span>
+    const SubMenuItem = ({ label, isPro, onClick }: SubMenuItemProps) => (
+        <button onClick={onClick} className="flex w-full items-center justify-between rounded-lg p-2 text-sm text-gray-400 hover:bg-white/5">
+            <span className={location.pathname.toLowerCase() === `/${label.replaceAll(' ','').toLowerCase()}` ? 'text-white': ''}>{label}</span>
             {isPro && <span className="rounded bg-blue-600 px-2 py-0.5 text-xs text-white">Pro</span>}
-        </div>
+        </button>
     )
 
   return (
@@ -138,7 +99,7 @@ export default function Sidebar() {
                         onClick={() => toggleMenu('dashboard')}
                     >
                         <div className="ml-7 mt-2 space-y-2">
-                            <SubMenuItem label="eCommerce" />
+                            <SubMenuItem label="eCommerce" onClick={() => navigate('/ecommerce')} />
                             <SubMenuItem label="Analytics" isPro={true} />
                             <SubMenuItem label="Marketing" isPro={true} />
                             <SubMenuItem label="CRM" isPro={true} />
@@ -181,7 +142,7 @@ export default function Sidebar() {
                             <SubMenuItem label="Form Elements" />
                             <SubMenuItem label="Pro Form Elements" isPro={true} />
                             <SubMenuItem label="Form Layout" />
-                            <SubMenuItem label="Pro Form Layout" isPro={true} />
+                            <SubMenuItem label="Pro Form Layout" isPro={true}  onClick={() => navigate('/proFormLayout')} />
                         </div>
                     </MenuItem>
                     

@@ -1,8 +1,6 @@
-import { Line, Area, AreaChart, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart"
-import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group"
-import { FormControl } from "./ui/form"
+import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { ChartContainer } from "@/components/ui/chart"
 
 const data = [
   { month: "Sep", revenue: 30, sales: 45 },
@@ -25,9 +23,6 @@ export default function RevenueChart() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-8">
           <div className=" flex gap-5">
-            {/* <FormControl> */}
-              {/* <RadioGroup defaultValue="option-one">
-                <RadioGroupItem className="checked:bg-blue-500 checked:border-blue-500" value="option-one" id="option-one" /> */}
                 <div className="flex gap-3">
                   <div className="bg-violet w-4 h-4 rounded-full mt-1"></div>
                   <div>

@@ -3,7 +3,6 @@ import Header from "./Header"
 import Sidebar from "./Sidebar"
 import StatCard from './StatCard'
 import RevenueChart from './RevenueChart'
-import { Profiler } from 'react'
 import ProfitChart from './ProfitChart'
 
 const cards = [
